@@ -10,10 +10,9 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 RUN mkdir -p /root/.insightface/models && \
-    curl -L -o /root/.insightface/models/buffalo_l.zip \
-    https://github.com/deepinsight/insightface/releases/download/v0.7/buffalo_l.zip && \
-    cd /root/.insightface/models && unzip buffalo_l.zip -d buffalo_l && rm buffalo_l.zip && \
-    rm -f buffalo_l/genderage.onnx buffalo_l/2d106det.onnx
+    curl -L -o /root/.insightface/models/buffalo_sc.zip \
+    https://github.com/deepinsight/insightface/releases/download/v0.7/buffalo_sc.zip && \
+    cd /root/.insightface/models && unzip buffalo_sc.zip -d buffalo_sc && rm buffalo_sc.zip
 
 COPY app.py .
 

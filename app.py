@@ -14,13 +14,14 @@ face_app = None
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global face_app
+    model_name = os.environ.get("INSIGHTFACE_MODEL", "buffalo_sc")
     face_app = FaceAnalysis(
-        name="buffalo_l",
-        allowed_modules=["detection", "landmark_3d_68", "recognition"],
+        name=model_name,
+        allowed_modules=["detection", "recognition"],
         providers=["CPUExecutionProvider"],
     )
     face_app.prepare(ctx_id=0, det_size=(640, 640))
-    print("InsightFace models loaded (ArcFace / buffalo_l)")
+    print(f"InsightFace models loaded ({model_name})")
     yield
 
 
@@ -95,7 +96,7 @@ def cosine_similarity(a: np.ndarray, b: np.ndarray) -> float:
 
 @app.get("/health")
 async def health():
-    return {"status": "ok", "model": "buffalo_l (ArcFace)"}
+    return {"status": "ok", "model": os.environ.get("INSIGHTFACE_MODEL", "buffalo_sc")}
 
 
 @app.post("/compare")
