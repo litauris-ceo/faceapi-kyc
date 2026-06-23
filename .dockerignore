@@ -1,0 +1,10 @@
+venv/
+node_modules/
+uploads/
+__pycache__/
+*.pyc
+server.js
+server.log
+models/
+package.json
+package-lock.json
